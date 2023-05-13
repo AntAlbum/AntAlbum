@@ -21,16 +21,19 @@ repositories {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-devtools")
 	implementation ("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1")
 	implementation("jakarta.validation:jakarta.validation-api:3.0.0")
 	implementation("org.hibernate.validator:hibernate-validator:7.0.1.Final")
+	implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
 	runtimeOnly("com.mysql:mysql-connector-j")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("org.junit.vintage:junit-vintage-engine") {
 		exclude(group = "org.hamcrest", module = "hamcrest-core")
 	}
