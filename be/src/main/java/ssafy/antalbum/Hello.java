@@ -1,4 +1,4 @@
-package ssafy.antalbum.be;
+package ssafy.antalbum;
 
 import lombok.Getter;
 import lombok.Setter;

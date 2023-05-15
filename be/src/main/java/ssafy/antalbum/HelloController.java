@@ -1,4 +1,4 @@
-package ssafy.antalbum.be;
+package ssafy.antalbum;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
