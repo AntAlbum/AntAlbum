@@ -29,6 +29,7 @@ dependencies {
 	implementation("jakarta.validation:jakarta.validation-api:3.0.0")
 	implementation("org.hibernate.validator:hibernate-validator:7.0.1.Final")
 	implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
+	implementation("com.amazonaws:aws-java-sdk:1.12.156")
 	runtimeOnly("com.mysql:mysql-connector-j")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
