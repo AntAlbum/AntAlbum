@@ -1,4 +1,4 @@
-package ssafy.antalbum.entity;
+package ssafy.antalbum.entity.photo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
