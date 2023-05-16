@@ -40,4 +40,4 @@ out/
 .DS_Store
 
 ### Setting ###
-*.yml
+be/src/main/resources/application.yml
