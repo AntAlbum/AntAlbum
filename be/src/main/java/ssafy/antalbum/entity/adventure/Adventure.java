@@ -1,6 +1,7 @@
 package ssafy.antalbum.entity.adventure;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
@@ -33,9 +34,9 @@ public abstract class Adventure {
     @JoinColumn(name = "travel_id")
     private Travel travel;
 
-    @OneToMany(mappedBy = "adventure")
+    @OneToMany(mappedBy = "adventure", cascade = CascadeType.ALL)
     private List<Like> likes;
 
-    @OneToMany(mappedBy = "adventure")
+    @OneToMany(mappedBy = "adventure", cascade = CascadeType.ALL)
     private List<Comment> comments;
 }

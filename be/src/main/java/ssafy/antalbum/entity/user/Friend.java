@@ -1,5 +1,6 @@
 package ssafy.antalbum.entity.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -18,12 +19,14 @@ public class Friend {
     @Id @GeneratedValue
     private Long id;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "from_user_id")
     private User fromUser;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "to_user_id")
     private User toUser;
 
     private FriendStatus friendStatus;
