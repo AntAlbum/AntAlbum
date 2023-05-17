@@ -23,7 +23,7 @@ public class Friend {
     private User fromUser;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+//    @JoinColumn(name = "user_id")
     private User toUser;
 
     private FriendStatus friendStatus;
