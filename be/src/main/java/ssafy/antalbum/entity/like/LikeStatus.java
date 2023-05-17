@@ -1,4 +1,4 @@
-package ssafy.antalbum.entity.adventure;
+package ssafy.antalbum.entity.like;
 
 public enum LikeStatus {
     LIKE, UNLIKE

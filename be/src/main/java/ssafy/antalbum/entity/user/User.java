@@ -10,8 +10,8 @@ import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ssafy.antalbum.entity.adventure.Comment;
-import ssafy.antalbum.entity.adventure.Like;
+import ssafy.antalbum.entity.comment.Comment;
+import ssafy.antalbum.entity.like.Like;
 import ssafy.antalbum.entity.tag.Tag;
 
 @Entity
