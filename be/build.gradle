@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.6'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = "ssafy"
+version = "0.0.1-SNAPSHOT"
+sourceCompatibility = '17'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    // validation
+//    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.0'
+    implementation 'org.hibernate.validator:hibernate-validator:7.0.1.Final'
+
+    // aws
+    implementation 'com.amazonaws:aws-java-sdk:1.12.156'
+
+    // else
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'
+    implementation 'com.drewnoakes:metadata-extractor:2.18.0'
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
