@@ -40,7 +40,6 @@ public class Travel {
     @OneToMany(mappedBy = "travel")
     private List<Photo> photos;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "travel")
     private List<Adventure> adventures;
 

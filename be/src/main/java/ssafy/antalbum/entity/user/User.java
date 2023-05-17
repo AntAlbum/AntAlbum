@@ -35,23 +35,23 @@ public class User {
     private UserInfo userInfo;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "fromUser", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "fromUser")
     private List<Friend> following;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "toUser", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "toUser")
     private List<Friend> followed;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user")
     private List<Tag> tags;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user")
     private List<Like> likes;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user")
     private List<Comment> comments;
 
 }
