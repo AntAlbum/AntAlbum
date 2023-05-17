@@ -14,8 +14,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.util.List;
 import lombok.Getter;
-import ssafy.antalbum.entity.comment.Comment;
-import ssafy.antalbum.entity.like.Like;
 import ssafy.antalbum.entity.travel.Travel;
 
 @Entity
