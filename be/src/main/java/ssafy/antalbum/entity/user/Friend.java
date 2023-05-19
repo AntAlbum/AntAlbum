@@ -22,9 +22,10 @@ public class Friend {
     @JoinColumn(name = "user_id")
     private User fromUser;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User toUser;
+    // todo: 나중에 수정 필요
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id")
+    private String toUser;
 
     private FriendStatus friendStatus;
 
