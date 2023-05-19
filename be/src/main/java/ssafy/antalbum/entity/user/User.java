@@ -109,6 +109,11 @@ public class User implements UserDetails {
     }
 
 
+    public User update(String nickname) {
+        this.nickname = nickname;
+        return this;
+    }
+
     @Builder
     public User(String email, String password, String nickname) {
         this.email = email;

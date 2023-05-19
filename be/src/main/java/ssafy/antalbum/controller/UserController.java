@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ssafy.antalbum.dto.AddUserRequest;
 import ssafy.antalbum.service.UserService;
 
+
+/**
+ * 일반 회원가입 기능을 위한 컨트롤러입니다. 추후에 일반 로그인이 구현될 시 사용됩니다.
+ */
 @RequiredArgsConstructor
 @Controller
 public class UserController {

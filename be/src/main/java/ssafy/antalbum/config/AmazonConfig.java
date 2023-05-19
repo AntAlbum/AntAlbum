@@ -1,4 +1,4 @@
-package ssafy.antalbum.conf;
+package ssafy.antalbum.config;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
