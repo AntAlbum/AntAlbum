@@ -44,10 +44,3 @@ logging:
 jwt:
   issuer: rnrl4611@gmail.com
   secret_key: iwanttosleepeverydayiwanttosleepeverydayiwanttosleepeveryday
-
-aws:
-  access.key.id: AKIA2YTQ3PUCHUBKCMCM
-  secret.access.key: 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
-  s3:
-    region: ap-northeast-2
-    bucket.name: antalbum
