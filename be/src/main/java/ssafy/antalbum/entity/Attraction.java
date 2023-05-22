@@ -1,4 +1,4 @@
-package ssafy.antalbum.domain.attraction.entity;
+package ssafy.antalbum.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

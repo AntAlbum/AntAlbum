@@ -1,6 +1,6 @@
-package ssafy.antalbum.domain.attraction.repository;
+package ssafy.antalbum.repository;
 
-import ssafy.antalbum.domain.attraction.entity.Attraction;
+import ssafy.antalbum.entity.Attraction;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package ssafy.antalbum.domain.attraction.dto;
+package ssafy.antalbum.dto;
 
 import lombok.Getter;
 import lombok.Setter;

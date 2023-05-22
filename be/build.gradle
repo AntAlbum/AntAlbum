@@ -36,6 +36,17 @@ dependencies {
     implementation 'jakarta.validation:jakarta.validation-api:3.0.0'
     implementation 'org.hibernate.validator:hibernate-validator:7.0.1.Final'
 
+    //JWT Dependency
+    compileOnly("io.jsonwebtoken:jjwt-api:0.11.2")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
+    testCompileOnly("io.jsonwebtoken:jjwt-api:0.11.2")
+    testRuntimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
+    testRuntimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
+
+    // 프로퍼티 값을 자바 클래스에서 꺼내 쓸 수 있게 해주는 어노테이션 @ConfigurationProperties 사용 위한 dependency
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
     // querydsl
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
     annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"

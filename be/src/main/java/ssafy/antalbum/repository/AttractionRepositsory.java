@@ -1,7 +1,7 @@
-package ssafy.antalbum.domain.attraction.repository;
+package ssafy.antalbum.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ssafy.antalbum.domain.attraction.entity.Attraction;
+import ssafy.antalbum.entity.Attraction;
 
 public interface AttractionRepositsory extends JpaRepository<Attraction, Long>, AttractionRepositoryCustom {
 

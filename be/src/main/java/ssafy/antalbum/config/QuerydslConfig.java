@@ -1,4 +1,4 @@
-package ssafy.antalbum.conf;
+package ssafy.antalbum.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;

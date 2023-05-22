@@ -1,4 +1,4 @@
-package ssafy.antalbum.domain.attraction.controller;
+package ssafy.antalbum.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ssafy.antalbum.domain.attraction.dto.SearchCondition;
-import ssafy.antalbum.domain.attraction.entity.Attraction;
-import ssafy.antalbum.domain.attraction.service.AttractionService;
+import ssafy.antalbum.dto.SearchCondition;
+import ssafy.antalbum.entity.Attraction;
+import ssafy.antalbum.service.AttractionService;
 
 import java.util.List;
 

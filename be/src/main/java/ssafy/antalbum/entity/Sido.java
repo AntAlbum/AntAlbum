@@ -1,4 +1,4 @@
-package ssafy.antalbum.domain.attraction.entity;
+package ssafy.antalbum.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

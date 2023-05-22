@@ -1,10 +1,10 @@
-package ssafy.antalbum.domain.attraction.service;
+package ssafy.antalbum.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ssafy.antalbum.domain.attraction.dto.SearchCondition;
-import ssafy.antalbum.domain.attraction.entity.Attraction;
-import ssafy.antalbum.domain.attraction.repository.AttractionRepositsory;
+import ssafy.antalbum.dto.SearchCondition;
+import ssafy.antalbum.entity.Attraction;
+import ssafy.antalbum.repository.AttractionRepositsory;
 
 import java.util.List;
 
@@ -25,8 +25,6 @@ public class AttractionService {
 
         return attractionRepository.findByCondition(sidoCode, contentTypeId, keyword);
     }
-
-//    public Attraction findByContentId(int )
 
 
 }

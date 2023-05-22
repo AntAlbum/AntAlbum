@@ -24,10 +24,10 @@ public class Friend {
     @JoinColumn(name = "from_user_id")
     private User fromUser;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "to_user_id")
-    private User toUser;
+    // todo: 나중에 수정 필요
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id")
+    private String toUser;
 
     private FriendStatus friendStatus;
 
