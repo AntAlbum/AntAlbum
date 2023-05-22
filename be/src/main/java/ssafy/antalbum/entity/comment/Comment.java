@@ -1,5 +1,6 @@
 package ssafy.antalbum.entity.comment;
 
+import static jakarta.persistence.FetchType.LAZY;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
@@ -12,19 +13,23 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import lombok.AccessLevel;
 import lombok.Getter;
-import ssafy.antalbum.entity.user.User;
+import lombok.NoArgsConstructor;
 import ssafy.antalbum.entity.adventure.Adventure;
+import ssafy.antalbum.entity.user.User;
 
 @Entity
+@Getter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
-@Getter
 public abstract class Comment {
 
     @Id @GeneratedValue
-    @Column(name = "comment_id")
     private Long id;
 
     @JsonIgnore
@@ -39,11 +44,15 @@ public abstract class Comment {
 
     private String comment;
 
-    private int order;
+    private int orders;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "parent_id")
     private Comment parent;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "parent")
+    private List<Comment> child = new ArrayList<>();
 
     private LocalDateTime localDateTime;
 

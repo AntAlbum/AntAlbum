@@ -1,6 +1,7 @@
 package ssafy.antalbum.entity.travel;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -33,14 +34,14 @@ public class Travel {
     private TravelStatus travelStatus;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "travel")
+    @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL)
     private List<Tag> tags;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "travel")
+    @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL)
     private List<Photo> photos;
 
-    @OneToMany(mappedBy = "travel")
+    @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL)
     private List<Adventure> adventures;
 
     private String thumbnail;
