@@ -47,11 +47,12 @@ public class WebSecurityConfig {
 
         http.authorizeRequests()
                 .requestMatchers("/api/token").permitAll()
+                .requestMatchers("http://localhost:8080/**").permitAll()
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll();
 
         http.oauth2Login()
-                .loginPage("/login")
+                .loginPage("http://localhost:8080/user/signin")
                 .authorizationEndpoint()
                 .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
                 .and()
@@ -60,7 +61,7 @@ public class WebSecurityConfig {
                 .userService(oAuth2UserCustomService);
 
         http.logout()
-                .logoutSuccessUrl("/login");
+                .logoutSuccessUrl("http://localhost:8080/user/signin");
 
 
         http.exceptionHandling()
