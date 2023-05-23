@@ -10,7 +10,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     properties:
       hibernate:
         format_sql: true
@@ -22,7 +22,7 @@ spring:
         registration:
           google:
             client-id: 892345291366-rnpj77i32do1275oa8g7hjct6riiltm2.apps.googleusercontent.com
-            client-secret: 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
+            client-secret: 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
             scope:
               - email
               - profile

@@ -18,7 +18,7 @@ public class AttractionController {
 
     private final AttractionService attractionService;
 
-    @GetMapping("api/attraction")
+    @GetMapping("attraction")
     public ResponseEntity<List<Attraction>> findAllAttractions() {
 
         List<Attraction> attractions = attractionService.findAll();
@@ -27,7 +27,7 @@ public class AttractionController {
     }
 
     // default : [0, 0, ""]
-    @PostMapping("api/attraction/condition")
+    @PostMapping("attraction/condition")
     public ResponseEntity<List<Attraction>> findByCondition(@RequestBody SearchCondition condition) {
 
         List<Attraction> attractions = attractionService.findByCondition(condition);
