@@ -36,6 +36,7 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
             }
         });
         log.debug("Path: " + path + ", FileName:" + fileName);
+        System.out.println("Path: " + path + ", FileName:" + fileName);
         return amazonS3.putObject(path, fileName, inputStream, objectMetadata);
     }
 

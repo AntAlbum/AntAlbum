@@ -46,4 +46,10 @@ public class Travel {
 
     private String thumbnail;
 
+    public static Travel createTravel() {
+        Travel travel = new Travel();
+
+        return travel;
+    }
+
 }
