@@ -22,7 +22,7 @@ spring:
         registration:
           google:
             client-id: 892345291366-rnpj77i32do1275oa8g7hjct6riiltm2.apps.googleusercontent.com
-            client-secret: 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
+            client-secret: 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
             scope:
               - email
               - profile
@@ -44,3 +44,7 @@ logging:
 jwt:
   issuer: rnrl4611@gmail.com
   secret_key: iwanttosleepeverydayiwanttosleepeverydayiwanttosleepeveryday
+
+aws:
+  s3:
+    bucket.name: antalbum
