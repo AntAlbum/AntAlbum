@@ -25,26 +25,19 @@ public class TravelAPIController {
     private final TravelService travelService;
     private final MetadataService metadataService;
 
-    @PostMapping("/apii/v1/travel")
-    public CreateTravelResponse createTravel(@RequestBody @Valid Travel travel) {
+    @PostMapping("/apii/v1/travel/info")
+    public CreateTravelResponse createTravelInfo(@RequestBody @Valid Travel travel) {
         Long id = travelService.create(travel);
         return new CreateTravelResponse(id);
     }
 
-    @PostMapping(value = "/apii/v3/travel/photo")
-    public void uploadPhoto3(@RequestParam("file") MultipartFile photo) throws IOException {
-        metadataService.upload(photo);
-        System.out.println("aaa");
-    }
-
-    @PostMapping("/apii/v2/travel/photo")
-    public void uploadPhoto2(@RequestParam("files") List<MultipartFile> photos) {
-        System.out.println("id: " + photos.size());
-    }
-
     @PostMapping("/apii/v1/travel/photo")
-    public void uploadPhoto(@RequestParam("id") String user, @RequestParam("files") List<MultipartFile> photos) {
+    public void addTravelPhoto(@RequestParam("id") String user, @RequestParam("files") List<MultipartFile> photos)
+            throws IOException {
         System.out.println("id: " + user);
+        for (MultipartFile photo: photos) {
+            metadataService.upload(photo);
+        }
     }
 
     @Data
