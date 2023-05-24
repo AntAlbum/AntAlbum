@@ -44,12 +44,4 @@ public class Travel {
     @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL)
     private List<Adventure> adventures;
 
-    private String thumbnail;
-
-    public static Travel createTravel() {
-        Travel travel = new Travel();
-
-        return travel;
-    }
-
 }

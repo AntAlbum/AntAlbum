@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.antalbum.entity.travel.Travel;
@@ -27,8 +28,23 @@ public class Photo {
     private Travel travel;
 
     @Embedded
-    private Metadata metadata;
+    private PhotoMeta photoMeta;
 
-    private String url;
+    @Embedded
+    private PhotoPath photoPath;
+
+    @Builder
+    public Photo(PhotoMeta photoMeta, PhotoPath photoPath) {
+        this.photoMeta = photoMeta;
+        this.photoPath = photoPath;
+    }
+
+    public static Photo createPhoto(PhotoMeta photoMeta, PhotoPath photoPath) {
+        return Photo.builder().photoMeta(photoMeta).photoPath(photoPath).build();
+    }
+
+    public void assignTravel(Travel travel) {
+        this.travel = travel;
+    }
 
 }
