@@ -33,11 +33,9 @@ public class Travel {
     @Enumerated(EnumType.STRING)
     private TravelStatus travelStatus;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL)
     private List<Tag> tags;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL)
     private List<Photo> photos;
 

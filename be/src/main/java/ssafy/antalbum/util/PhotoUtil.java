@@ -10,6 +10,9 @@ import com.drew.metadata.file.FileTypeDirectory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import org.springframework.web.multipart.MultipartFile;
 import ssafy.antalbum.entity.photo.PhotoMeta;
 
 public class PhotoUtil {
@@ -49,6 +52,14 @@ public class PhotoUtil {
                 .build();
 
         return photoMeta;
+    }
+
+    public static Map<String, String> extractAWSMetaData(MultipartFile file) {
+        Map<String, String> metadata = new HashMap<>();
+        metadata.put("Content-Type", file.getContentType());
+        metadata.put("Content-Length", String.valueOf(file.getSize()));
+
+        return metadata;
     }
 
 }

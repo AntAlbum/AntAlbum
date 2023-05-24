@@ -1,18 +1,29 @@
 package ssafy.antalbum.service;
 
+import static ssafy.antalbum.entity.photo.QPhoto.photo;
+
 import com.drew.imaging.ImageProcessingException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ssafy.antalbum.entity.adventure.Adventure;
+import ssafy.antalbum.entity.adventure.AdventureDate;
 import ssafy.antalbum.entity.photo.Photo;
 import ssafy.antalbum.entity.photo.PhotoMeta;
 import ssafy.antalbum.entity.photo.PhotoPath;
@@ -27,6 +38,7 @@ import ssafy.antalbum.util.PhotoUtil;
 public class TravelService {
 
     private final TravelRepository travelRepository;
+    private final AmazonS3Service amazonS3Service;
 
     @Value("${aws.s3.bucket.name}")
     private String bucketName;
@@ -39,20 +51,38 @@ public class TravelService {
 
     @Transactional
     public void updatePhoto(Long id, List<MultipartFile> files, List<String> names)
-            throws IOException, ImageProcessingException {
+            throws IOException, ImageProcessingException, ParseException {
         Travel travel = findOne(id);
 
         List<Photo> photos = new ArrayList<>();
         for (int i = 0; i < files.size(); i++) {
             PhotoMeta photoMeta = PhotoUtil.extractMetaData(files.get(i).getInputStream());
             PhotoPath photoPath = PhotoPath.createPhotoPath(bucketName, id.toString(), names.get(i));
+
             Photo photo = Photo.createPhoto(photoMeta, photoPath);
             photo.assignTravel(travel);
             photos.add(photo);
+
+            Map<String, String> metadata = PhotoUtil.extractAWSMetaData(files.get(i));
+            amazonS3Service.upload(photoPath, metadata, files.get(i).getInputStream());
+        }
+
+        HashSet<String> dates = new HashSet<>();
+        for (Photo photo: photos) {
+            String date = photo.getDate(photo);
+            if (date != null) dates.add(date);
+        }
+
+        List<AdventureDate> adventures = new ArrayList<>();
+        for (String date: dates) {
+            AdventureDate adventure = AdventureDate.createAdventureDate(date);
+            adventure.assignTravel(travel);
+            adventures.add(adventure);
         }
 
         travel.getPhotos().addAll(photos);
-        travelRepository.updateWithPhotos(travel);
+        travel.getAdventures().addAll(adventures);
+        travelRepository.updateWithPhotosAndAdventures(travel);
     }
 
     public Travel findOne(Long id) {

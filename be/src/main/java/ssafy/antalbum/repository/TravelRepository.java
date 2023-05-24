@@ -20,7 +20,7 @@ public class TravelRepository {
         return em.find(Travel.class, id);
     }
 
-    public void updateWithPhotos(Travel travel) {
+    public void updateWithPhotosAndAdventures(Travel travel) {
         em.persist(travel);
     }
 }

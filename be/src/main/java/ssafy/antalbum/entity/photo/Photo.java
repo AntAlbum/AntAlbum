@@ -8,6 +8,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -45,6 +50,15 @@ public class Photo {
 
     public void assignTravel(Travel travel) {
         this.travel = travel;
+    }
+
+    public String getDate(Photo photo) throws ParseException {
+        if (photo.getPhotoMeta().getDateTimeOriginal().equals("")) return null;
+
+        DateFormat format = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy");
+        Date date = format.parse(photo.getPhotoMeta().getDateTimeOriginal());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+        return formatter.format(date);
     }
 
 }
