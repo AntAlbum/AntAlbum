@@ -24,7 +24,10 @@ public class AttractionRepositoryCustomImpl implements AttractionRepositoryCusto
                 .where(
                         eqSidoCode(sidoCode),
                         eqContentTypeId(contentTypeId),
-                        eqKeyword(keyword))
+                        eqKeyword(keyword)
+                )
+                .orderBy(attraction.readCount.desc())
+                .limit(100)
                 .fetch();
     }
 
