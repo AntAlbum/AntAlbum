@@ -15,7 +15,8 @@ public class AttractionService {
     private final AttractionRepositsory attractionRepository;
 
     public List<Attraction> findAll() {
-        return attractionRepository.findAll();
+//        return attractionRepository.findAll();
+        return attractionRepository.findTop100ByOrderByReadCountDesc();
     }
 
     public List<Attraction> findByCondition(SearchCondition searchCondition) {
