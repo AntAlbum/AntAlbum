@@ -10,12 +10,14 @@ import ssafy.antalbum.entity.travel.Travel;
 @Getter
 public class TravelDto {
 
+    private Long id;
     private String title;
     private String description;
     private String duration;
     private String thumbnail;
 
     public TravelDto(Travel travel, List<String> duration) {
+        this.id = travel.getId();
         this.title = travel.getTitle();
         this.description = travel.getDescription();
         this.duration = convertDuration(duration);
