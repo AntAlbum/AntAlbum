@@ -22,12 +22,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import ssafy.antalbum.dto.CreateTravelInfoRequest;
+import ssafy.antalbum.dto.MemberDto;
 import ssafy.antalbum.entity.adventure.Adventure;
 import ssafy.antalbum.entity.adventure.AdventureDate;
 import ssafy.antalbum.entity.photo.Photo;
 import ssafy.antalbum.entity.photo.PhotoMeta;
 import ssafy.antalbum.entity.photo.PhotoPath;
+import ssafy.antalbum.entity.tag.Tag;
 import ssafy.antalbum.entity.travel.Travel;
+import ssafy.antalbum.entity.user.User;
 import ssafy.antalbum.repository.TravelRepository;
 import ssafy.antalbum.util.MetadataExtractor;
 import ssafy.antalbum.util.PhotoUtil;
@@ -39,12 +43,23 @@ public class TravelService {
 
     private final TravelRepository travelRepository;
     private final AmazonS3Service amazonS3Service;
+    private final UserService userService;
 
     @Value("${aws.s3.bucket.name}")
     private String bucketName;
 
     @Transactional
-    public Long create(Travel travel) {
+    public Long create(CreateTravelInfoRequest request) {
+        Travel travel = request.getTravel();
+        List<MemberDto> members = request.getMembers();
+
+        List<Tag> tags = new ArrayList<>();
+        for (MemberDto member: members) {
+            User user = userService.findById(member.getUserId());
+            tags.add(Tag.createTag(travel, user, member.getTagStatus()));
+        }
+
+        travel.addTags(tags);
         travelRepository.save(travel);
         return travel.getId();
     }

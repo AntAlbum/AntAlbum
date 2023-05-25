@@ -8,13 +8,18 @@ import java.util.List;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import ssafy.antalbum.dto.CreateTravelInfoRequest;
+import ssafy.antalbum.dto.CreateTravelInfoResponse;
+import ssafy.antalbum.dto.TravelDto;
 import ssafy.antalbum.entity.travel.Travel;
 import ssafy.antalbum.service.TravelService;
+import ssafy.antalbum.service.UserService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -24,8 +29,8 @@ public class TravelAPIController {
     private final TravelService travelService;
 
     @PostMapping("/apii/v1/travel/info")
-    public CreateTravelInfoResponse createTravelInfo(@RequestBody @Valid Travel travel) {
-        Long id = travelService.create(travel);
+    public CreateTravelInfoResponse createTravelInfo(@RequestBody @Valid CreateTravelInfoRequest request) {
+        Long id = travelService.create(request);
         return new CreateTravelInfoResponse(id);
     }
 
@@ -38,13 +43,9 @@ public class TravelAPIController {
         return new CreateTravelInfoResponse(Long.parseLong(travel));
     }
 
-    @Data
-    static class CreateTravelInfoResponse {
-        private Long id;
-
-        public CreateTravelInfoResponse(Long id) {
-            this.id = id;
-        }
+    @GetMapping("/apii/v1/travel")
+    public List<TravelDto> listTravel(@RequestParam("id") String user) {
+        return null;
     }
 
 }

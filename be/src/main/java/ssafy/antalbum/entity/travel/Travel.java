@@ -42,4 +42,8 @@ public class Travel {
     @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL)
     private List<Adventure> adventures;
 
+    public void addTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
 }

@@ -10,8 +10,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import ssafy.antalbum.dto.MemberDto;
 import ssafy.antalbum.entity.travel.Travel;
 import ssafy.antalbum.entity.user.User;
 
@@ -35,4 +37,19 @@ public class Tag {
 
     @Enumerated(EnumType.STRING)
     private TagStatus tagStatus;
+
+    @Builder
+    public Tag(Travel travel, User user, TagStatus tagStatus) {
+        this.travel = travel;
+        this.user = user;
+        this.tagStatus = tagStatus;
+    }
+
+    public static Tag createTag(Travel travel, User user, TagStatus tagStatus) {
+        return Tag.builder()
+                .travel(travel)
+                .user(user)
+                .tagStatus(tagStatus)
+                .build();
+    }
 }
