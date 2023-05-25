@@ -30,11 +30,12 @@ public class TravelAPIController {
     }
 
     @PostMapping("/apii/v1/travel/photo")
-    public void addTravelPhoto(@RequestParam("id") String travel,
+    public CreateTravelInfoResponse addTravelPhoto(@RequestParam("id") String travel,
             @RequestParam("files") List<MultipartFile> files,
             @RequestParam("names") List<String> names)
             throws IOException, ImageProcessingException, ParseException {
         travelService.updatePhoto(Long.parseLong(travel), files, names);
+        return new CreateTravelInfoResponse(Long.parseLong(travel));
     }
 
     @Data
