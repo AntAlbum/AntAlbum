@@ -40,7 +40,14 @@ public abstract class Adventure {
     @OneToMany(mappedBy = "adventure", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
+    private String thumbnail;
+
     public void assignTravel(Travel travel) {
         this.travel = travel;
     }
+
+    public void assignThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
 }

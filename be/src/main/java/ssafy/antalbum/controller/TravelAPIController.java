@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import ssafy.antalbum.dto.CreateTravelInfoRequest;
 import ssafy.antalbum.dto.CreateTravelInfoResponse;
+import ssafy.antalbum.dto.TravelDetailDto;
 import ssafy.antalbum.dto.TravelDto;
 import ssafy.antalbum.entity.travel.Travel;
 import ssafy.antalbum.service.TravelService;
@@ -40,9 +41,14 @@ public class TravelAPIController {
         return travelService.updatePhoto(Long.parseLong(travel), files, names);
     }
 
-    @GetMapping("/apii/v1/travel/{userid}")
+    @GetMapping("/apii/v1/travel/list/{userid}")
     public List<TravelDto> listTravel(@PathVariable("userid") Long userId) {
         return travelService.findAllTravelInfo(userId);
+    }
+
+    @GetMapping("/apii/v1/travel/{travelid}")
+    public TravelDetailDto getTravel(@PathVariable("travelid") Long travelId) {
+        return travelService.getTravelDetail(travelId);
     }
 
 }
