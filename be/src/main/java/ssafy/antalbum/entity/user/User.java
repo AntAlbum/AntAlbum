@@ -35,7 +35,7 @@ public class User implements UserDetails {
 
     private String nickname;
     private String comment;
-    
+
     @Column(length=4000)
     private String profile;
 
