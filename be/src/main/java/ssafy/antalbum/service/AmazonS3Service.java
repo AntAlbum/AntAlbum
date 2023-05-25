@@ -9,9 +9,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import ssafy.antalbum.entity.photo.PhotoPath;
-import ssafy.antalbum.util.PhotoUtil;
 
 @Service
 public class AmazonS3Service {
@@ -19,7 +17,10 @@ public class AmazonS3Service {
     @Autowired
     private AmazonS3 amazonS3;
 
-    public PutObjectResult upload(
+    @Value("${aws.s3.bucket.name}")
+    private String bucketName;
+
+    public String upload(
             PhotoPath photoPath, Map<String, String> metadata, InputStream inputStream) {
 
         ObjectMetadata objectMetadata = new ObjectMetadata();
@@ -30,7 +31,11 @@ public class AmazonS3Service {
             }
         });
 
-        return amazonS3.putObject(
+        PutObjectResult objectResult = amazonS3.putObject(
                 photoPath.getUrl(), photoPath.getEncodedFileName(), inputStream, objectMetadata);
+
+        String path = String.format("%s/%s", photoPath.getUrl().split("/")[1], photoPath.getEncodedFileName());
+        return amazonS3.getUrl(bucketName, path).toString();
     }
+
 }

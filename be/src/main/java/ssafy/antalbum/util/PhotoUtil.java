@@ -37,6 +37,7 @@ public class PhotoUtil {
         FileTypeDirectory type_dir = metadata.getFirstDirectoryOfType(FileTypeDirectory.class);
         String detected_type = type_dir == null ? "" : type_dir.getString(FileTypeDirectory.TAG_DETECTED_FILE_TYPE_NAME);
         String detected_mime = type_dir == null ? "" : type_dir.getString(FileTypeDirectory.TAG_DETECTED_FILE_MIME_TYPE);
+        String extension = type_dir == null ? "" : type_dir.getString(FileTypeDirectory.TAG_EXPECTED_FILE_NAME_EXTENSION);
 
         PhotoMeta photoMeta = PhotoMeta.builder()
                 .dateTimeOriginal(datetime == null ? null : datetime.toString())
@@ -49,6 +50,7 @@ public class PhotoUtil {
                 .gpsAltitude(altitude)
                 .detectedFileTypeName(detected_type)
                 .detectedMIMEType(detected_mime)
+                .expectedFileNameExtension(extension)
                 .build();
 
         return photoMeta;
@@ -56,7 +58,7 @@ public class PhotoUtil {
 
     public static Map<String, String> extractAWSMetaData(MultipartFile file) {
         Map<String, String> metadata = new HashMap<>();
-        metadata.put("Content-Type", file.getContentType());
+        metadata.put("Content-Type", "image/jpeg");
         metadata.put("Content-Length", String.valueOf(file.getSize()));
 
         return metadata;

@@ -23,10 +23,10 @@ public class PhotoPath {
         this.originalFileName = originalFileName;
     }
 
-    public static PhotoPath createPhotoPath(String bucketName, String travel_id, String fileName) {
+    public static PhotoPath createPhotoPath(String bucketName, String travel_id, String fileName, String extension) {
         return PhotoPath.builder()
                 .url(String.format("%s/%s", bucketName, travel_id))
-                .encodedFileName(String.valueOf(UUID.randomUUID()))
+                .encodedFileName(String.format("%s.%s", String.valueOf(UUID.randomUUID()), extension))
                 .originalFileName(fileName)
                 .build();
     }

@@ -5,15 +5,18 @@ import jakarta.validation.Valid;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import ssafy.antalbum.entity.travel.Travel;
+import ssafy.antalbum.dto.CreateTravelInfoRequest;
+import ssafy.antalbum.dto.CreateTravelInfoResponse;
+import ssafy.antalbum.dto.TravelDto;
 import ssafy.antalbum.service.TravelService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -24,26 +27,23 @@ public class TravelAPIController {
     private final TravelService travelService;
 
     @PostMapping("/apii/v1/travel/info")
-    public CreateTravelInfoResponse createTravelInfo(@RequestBody @Valid Travel travel) {
-        Long id = travelService.create(travel);
+    public CreateTravelInfoResponse createTravelInfo(@RequestBody @Valid CreateTravelInfoRequest request) {
+        Long id = travelService.create(request);
         return new CreateTravelInfoResponse(id);
     }
 
     @PostMapping("/apii/v1/travel/photo")
-    public void addTravelPhoto(@RequestParam("id") String travel,
+    public CreateTravelInfoResponse addTravelPhoto(@RequestParam("id") String travel,
             @RequestParam("files") List<MultipartFile> files,
             @RequestParam("names") List<String> names)
             throws IOException, ImageProcessingException, ParseException {
         travelService.updatePhoto(Long.parseLong(travel), files, names);
+        return new CreateTravelInfoResponse(Long.parseLong(travel));
     }
 
-    @Data
-    static class CreateTravelInfoResponse {
-        private Long id;
-
-        public CreateTravelInfoResponse(Long id) {
-            this.id = id;
-        }
+    @GetMapping("/apii/v1/travel/{userid}")
+    public List<TravelDto> listTravel(@PathVariable("userid") Long userId) {
+        return travelService.findAllTravelInfo(userId);
     }
 
 }
