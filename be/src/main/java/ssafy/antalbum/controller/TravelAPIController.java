@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ssafy.antalbum.dto.CreateTravelInfoRequest;
 import ssafy.antalbum.dto.CreateTravelInfoResponse;
 import ssafy.antalbum.dto.TravelDto;
+import ssafy.antalbum.entity.travel.Travel;
 import ssafy.antalbum.service.TravelService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -27,18 +28,16 @@ public class TravelAPIController {
     private final TravelService travelService;
 
     @PostMapping("/apii/v1/travel/info")
-    public CreateTravelInfoResponse createTravelInfo(@RequestBody @Valid CreateTravelInfoRequest request) {
-        Long id = travelService.create(request);
-        return new CreateTravelInfoResponse(id);
+    public TravelDto createTravelInfo(@RequestBody @Valid CreateTravelInfoRequest request) {
+        return travelService.create(request);
     }
 
     @PostMapping("/apii/v1/travel/photo")
-    public CreateTravelInfoResponse addTravelPhoto(@RequestParam("id") String travel,
+    public TravelDto addTravelPhoto(@RequestParam("id") String travel,
             @RequestParam("files") List<MultipartFile> files,
             @RequestParam("names") List<String> names)
             throws IOException, ImageProcessingException, ParseException {
-        travelService.updatePhoto(Long.parseLong(travel), files, names);
-        return new CreateTravelInfoResponse(Long.parseLong(travel));
+        return travelService.updatePhoto(Long.parseLong(travel), files, names);
     }
 
     @GetMapping("/apii/v1/travel/{userid}")

@@ -38,7 +38,7 @@ public class TravelService {
     private String bucketName;
 
     @Transactional
-    public Long create(CreateTravelInfoRequest request) {
+    public TravelDto create(CreateTravelInfoRequest request) {
         Travel travel = request.getTravel();
         List<MemberDto> members = request.getMembers();
 
@@ -50,11 +50,11 @@ public class TravelService {
 
         travel.addTags(tags);
         travelRepository.save(travel);
-        return travel.getId();
+        return new TravelDto(travel, new ArrayList<String>());
     }
 
     @Transactional
-    public void updatePhoto(Long id, List<MultipartFile> files, List<String> names)
+    public TravelDto updatePhoto(Long id, List<MultipartFile> files, List<String> names)
             throws IOException, ImageProcessingException, ParseException {
         Travel travel = findOne(id);
 
@@ -89,6 +89,7 @@ public class TravelService {
         travel.getPhotos().addAll(photos);
         travel.getAdventures().addAll(adventures);
         travelRepository.updateWithPhotosAndAdventures(travel);
+        return new TravelDto(travel, travelRepository.findTravelDuration(id));
     }
 
     public Travel findOne(Long id) {
