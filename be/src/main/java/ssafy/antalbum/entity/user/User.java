@@ -112,6 +112,7 @@ public class User implements UserDetails {
 
 
     public User update(String nickname) {
+        this.username = nickname;
         this.nickname = nickname;
         return this;
     }
