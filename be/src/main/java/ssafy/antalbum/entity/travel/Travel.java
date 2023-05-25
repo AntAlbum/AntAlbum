@@ -33,23 +33,13 @@ public class Travel {
     @Enumerated(EnumType.STRING)
     private TravelStatus travelStatus;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL)
     private List<Tag> tags;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL)
     private List<Photo> photos;
 
     @OneToMany(mappedBy = "travel", cascade = CascadeType.ALL)
     private List<Adventure> adventures;
-
-    private String thumbnail;
-
-    public static Travel createTravel() {
-        Travel travel = new Travel();
-
-        return travel;
-    }
 
 }

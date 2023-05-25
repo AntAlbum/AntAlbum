@@ -39,4 +39,8 @@ public abstract class Adventure {
 
     @OneToMany(mappedBy = "adventure", cascade = CascadeType.ALL)
     private List<Comment> comments;
+
+    public void assignTravel(Travel travel) {
+        this.travel = travel;
+    }
 }

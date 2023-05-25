@@ -3,6 +3,7 @@ package ssafy.antalbum.repository;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import ssafy.antalbum.entity.photo.Photo;
 import ssafy.antalbum.entity.travel.Travel;
 
 @Repository
@@ -19,4 +20,7 @@ public class TravelRepository {
         return em.find(Travel.class, id);
     }
 
+    public void updateWithPhotosAndAdventures(Travel travel) {
+        em.persist(travel);
+    }
 }
