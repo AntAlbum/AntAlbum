@@ -5,10 +5,10 @@ import jakarta.validation.Valid;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,9 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ssafy.antalbum.dto.CreateTravelInfoRequest;
 import ssafy.antalbum.dto.CreateTravelInfoResponse;
 import ssafy.antalbum.dto.TravelDto;
-import ssafy.antalbum.entity.travel.Travel;
 import ssafy.antalbum.service.TravelService;
-import ssafy.antalbum.service.UserService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -43,9 +41,9 @@ public class TravelAPIController {
         return new CreateTravelInfoResponse(Long.parseLong(travel));
     }
 
-    @GetMapping("/apii/v1/travel")
-    public List<TravelDto> listTravel(@RequestParam("id") String user) {
-        return null;
+    @GetMapping("/apii/v1/travel/{userid}")
+    public List<TravelDto> listTravel(@PathVariable("userid") Long userId) {
+        return travelService.findAllTravelInfo(userId);
     }
 
 }

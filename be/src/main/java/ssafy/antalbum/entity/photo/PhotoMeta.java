@@ -21,13 +21,15 @@ public class PhotoMeta {
     private String gpsAltitude;
     private String detectedFileTypeName;
     private String detectedMIMEType;
+    private String expectedFileNameExtension;
 
     @Builder
     public PhotoMeta(String dateTimeOriginal, String timeZoneOriginal,
             String gpsLatitudeRef, String gpsLatitude,
             String gpsLongitudeRef, String gpsLongitude,
             String gpsAltitudeRef, String gpsAltitude,
-            String detectedFileTypeName, String detectedMIMEType) {
+            String detectedFileTypeName, String detectedMIMEType,
+            String expectedFileNameExtension) {
 
         this.dateTimeOriginal = dateTimeOriginal;
         this.timeZoneOriginal = timeZoneOriginal;
@@ -39,6 +41,7 @@ public class PhotoMeta {
         this.gpsAltitude = gpsAltitude;
         this.detectedFileTypeName = detectedFileTypeName;
         this.detectedMIMEType = detectedMIMEType;
+        this.expectedFileNameExtension = expectedFileNameExtension;
     }
 
 }
