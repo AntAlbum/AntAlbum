@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import ssafy.antalbum.entity.tag.TagStatus;
 import ssafy.antalbum.entity.travel.Travel;
 
 @Repository
@@ -37,9 +38,37 @@ public class TravelRepository {
         return em.createQuery(
                 "select a.date from AdventureDate a" +
                         " where a.travel.id = :travelId" +
-                        " order by a.date", String.class)
+                        " order by a.date desc", String.class)
                 .setParameter("travelId", travelId)
                 .getResultList();
     }
 
+    public List<Object[]> findAdventureInfo(Long travelId) {
+        return em.createQuery(
+                "select a.id, a.thumbnail from AdventureDate a" +
+                        " where a.travel.id = :travelId" +
+                        " order by a.date desc")
+                .setParameter("travelId", travelId)
+                .getResultList();
+    }
+
+    public Long findNumberOfPhoto(Long travelId) {
+        return em.createQuery(
+                "select count(p) from Photo p" +
+                " where p.travel.id = :travelId", Long.class)
+                .setParameter("travelId", travelId)
+                .getSingleResult();
+    }
+
+    public List<Object[]> findTaggedFriends(Long travelId) {
+        return em.createQuery(
+                "select u.id, u.profile from User u" +
+                        " where u.id in ("+""+
+                        " select t.user.id from Tag t" +
+                        " where t.travel.id = :travelId" +
+                        " and t.tagStatus = :status)")
+                .setParameter("travelId", travelId)
+                .setParameter("status", TagStatus.MEMBER)
+                .getResultList();
+    }
 }

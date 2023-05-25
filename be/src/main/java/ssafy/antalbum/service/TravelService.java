@@ -7,13 +7,17 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import ssafy.antalbum.dto.AdventureDto;
 import ssafy.antalbum.dto.CreateTravelInfoRequest;
+import ssafy.antalbum.dto.FriendDto;
 import ssafy.antalbum.dto.MemberDto;
+import ssafy.antalbum.dto.TravelDetailDto;
 import ssafy.antalbum.dto.TravelDto;
 import ssafy.antalbum.entity.adventure.AdventureDate;
 import ssafy.antalbum.entity.photo.Photo;
@@ -38,7 +42,7 @@ public class TravelService {
     private String bucketName;
 
     @Transactional
-    public Long create(CreateTravelInfoRequest request) {
+    public TravelDto create(CreateTravelInfoRequest request) {
         Travel travel = request.getTravel();
         List<MemberDto> members = request.getMembers();
 
@@ -50,11 +54,11 @@ public class TravelService {
 
         travel.addTags(tags);
         travelRepository.save(travel);
-        return travel.getId();
+        return new TravelDto(travel, new ArrayList<String>());
     }
 
     @Transactional
-    public void updatePhoto(Long id, List<MultipartFile> files, List<String> names)
+    public TravelDto updatePhoto(Long id, List<MultipartFile> files, List<String> names)
             throws IOException, ImageProcessingException, ParseException {
         Travel travel = findOne(id);
 
@@ -74,14 +78,19 @@ public class TravelService {
         }
 
         HashSet<String> dates = new HashSet<>();
+        List<String> thumbnails = new ArrayList<>();
         for (Photo photo: photos) {
             String date = photo.getDate(photo);
-            if (date != null) dates.add(date);
+            if (date != null &&!dates.contains(date)) {
+                thumbnails.add(amazonS3Service.getAmazonUrl(photo.getPhotoPath()));
+                dates.add(date);
+            }
         }
 
         List<AdventureDate> adventures = new ArrayList<>();
+        int index = 0;
         for (String date: dates) {
-            AdventureDate adventure = AdventureDate.createAdventureDate(date);
+            AdventureDate adventure = AdventureDate.createAdventureDate(date, thumbnails.get(index++));
             adventure.assignTravel(travel);
             adventures.add(adventure);
         }
@@ -89,6 +98,7 @@ public class TravelService {
         travel.getPhotos().addAll(photos);
         travel.getAdventures().addAll(adventures);
         travelRepository.updateWithPhotosAndAdventures(travel);
+        return new TravelDto(travel, travelRepository.findTravelDuration(id));
     }
 
     public Travel findOne(Long id) {
@@ -109,4 +119,16 @@ public class TravelService {
         return travelRepository.findAllTravelsWithUser(userId);
     }
 
+    public TravelDetailDto getTravelDetail(Long travelId) {
+        List<AdventureDto> adventures = travelRepository.findAdventureInfo(travelId)
+                .stream()
+                .map(a -> new AdventureDto(a))
+                .collect(Collectors.toList());
+        List<FriendDto> friends = travelRepository.findTaggedFriends(travelId)
+                .stream()
+                .map(f -> new FriendDto(f))
+                .collect(Collectors.toList());
+        Long numPhotos = travelRepository.findNumberOfPhoto(travelId);
+        return new TravelDetailDto(travelId, numPhotos, adventures, friends);
+    }
 }

@@ -19,17 +19,18 @@ public class AdventureDate extends Adventure {
     private Date date;
 
     @Builder
-    public AdventureDate(Date date) {
+    public AdventureDate(Date date, String thumbnail) {
         this.date = date;
+        assignThumbnail(thumbnail);
     }
 
     protected AdventureDate() {
 
     }
 
-    public static AdventureDate createAdventureDate(String date) throws ParseException {
+    public static AdventureDate createAdventureDate(String date, String thumbnail) throws ParseException {
         Date target = new SimpleDateFormat("yyyy/MM/dd").parse(date);
-        return AdventureDate.builder().date(target).build();
+        return AdventureDate.builder().date(target).thumbnail(thumbnail).build();
     }
 
 }

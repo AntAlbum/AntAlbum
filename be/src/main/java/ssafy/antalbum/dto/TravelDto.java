@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import lombok.Getter;
 import ssafy.antalbum.entity.travel.Travel;
+import ssafy.antalbum.entity.travel.TravelStatus;
 
 @Getter
 public class TravelDto {
@@ -15,6 +16,7 @@ public class TravelDto {
     private String description;
     private String duration;
     private String thumbnail;
+    private TravelStatus travelStatus;
 
     public TravelDto(Travel travel, List<String> duration) {
         this.id = travel.getId();
@@ -22,6 +24,7 @@ public class TravelDto {
         this.description = travel.getDescription();
         this.duration = convertDuration(duration);
         this.thumbnail = travel.getThumbnail();
+        this.travelStatus = travel.getTravelStatus();
     }
 
     private String convertDuration(List<String> duration) {
