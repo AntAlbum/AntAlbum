@@ -10,10 +10,8 @@ import jakarta.persistence.OneToMany;
 
 import java.util.Collection;
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +21,7 @@ import ssafy.antalbum.entity.tag.Tag;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User implements UserDetails {
 
@@ -30,11 +29,14 @@ public class User implements UserDetails {
     @Column(name = "user_id")
     private Long id;
 
+    private String username;
     private String email;
     private String password;
 
     private String nickname;
     private String comment;
+
+    @Column(length=4000)
     private String profile;
 
     @Embedded
@@ -70,7 +72,7 @@ public class User implements UserDetails {
     // 사용자의 id를 반환(고유한 값)
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     // 사용자의 패스워드 반환
@@ -110,14 +112,17 @@ public class User implements UserDetails {
 
 
     public User update(String nickname) {
+        this.username = nickname;
         this.nickname = nickname;
         return this;
     }
 
     @Builder
-    public User(String email, String password, String nickname) {
+    public User(String email, String password,String username, String nickname, String profile) {
         this.email = email;
         this.password = password;
+        this.username = username;
         this.nickname = nickname;
+        this.profile = profile;
     }
 }

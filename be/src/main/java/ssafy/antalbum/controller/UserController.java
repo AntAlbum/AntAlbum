@@ -4,11 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ssafy.antalbum.dto.AddUserRequest;
+import ssafy.antalbum.dto.ModifyUserRequest;
 import ssafy.antalbum.entity.user.User;
 import ssafy.antalbum.service.UserService;
 
@@ -18,7 +16,7 @@ import ssafy.antalbum.service.UserService;
  */
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class UserController {
 
     private final UserService userService;
@@ -28,12 +26,18 @@ public class UserController {
         return new ResponseEntity<>(userService.findById(userId), HttpStatus.OK);
     }
 
-    @PostMapping("/user")
-    public String signup(AddUserRequest request) {
-        userService.save(request); // 회원 가입 메서드 호출
-
-        // todo: redirect url setting
-        return "redirect:";
+    @PutMapping("user/{userid}")
+    public ResponseEntity<User> modifyUser(@PathVariable("userid") Long userId, @RequestBody ModifyUserRequest userModifyRequest) {
+        User resultUser = userService.modifyUser(userId, userModifyRequest);
+        return ResponseEntity.ok().body(resultUser);
     }
+
+//    @PostMapping("/user")
+//    public String signup(AddUserRequest request) {
+//        userService.save(request); // 회원 가입 메서드 호출
+//
+//        // todo: redirect url setting
+//        return "redirect:";
+//    }
 
 }
