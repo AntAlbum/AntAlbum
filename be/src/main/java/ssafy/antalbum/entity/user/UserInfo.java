@@ -12,16 +12,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserInfo {
 
-    private String username;
+//    private String username;
 //    private String email;
     private String provider;
 
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
 
-    public UserInfo(String username, String email, String provider, UserStatus userStatus) {
-        this.username = username;
-//        this.email = email;
+    public UserInfo( String provider, UserStatus userStatus) {
         this.provider = provider;
         this.userStatus = userStatus;
     }

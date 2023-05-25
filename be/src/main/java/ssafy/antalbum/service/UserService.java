@@ -4,8 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ssafy.antalbum.dto.AddUserRequest;
+import ssafy.antalbum.dto.ModifyUserRequest;
 import ssafy.antalbum.entity.user.User;
 import ssafy.antalbum.repository.UserRepository;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -30,6 +33,17 @@ public class UserService {
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+    }
+
+    public User modifyUser(Long userId, ModifyUserRequest modifyUserRequest) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+        user.setNickname(modifyUserRequest.getNickname());
+        user.setProfile(modifyUserRequest.getProfile());
+        user.setComment(modifyUserRequest.getComment());
+
+        return userRepository.save(user);
+
     }
 
 
