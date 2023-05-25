@@ -115,9 +115,10 @@ public class User implements UserDetails {
     }
 
     @Builder
-    public User(String email, String password, String nickname) {
+    public User(String email, String password, String nickname, String profile) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
+        this.profile = profile;
     }
 }
