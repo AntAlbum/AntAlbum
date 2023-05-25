@@ -31,4 +31,8 @@ public class PhotoPath {
                 .build();
     }
 
+    public String parseUrl() {
+        return String.format("%s/%s", url.split("/")[1], encodedFileName);
+    }
+
 }

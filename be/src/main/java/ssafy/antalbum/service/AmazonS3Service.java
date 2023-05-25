@@ -34,8 +34,11 @@ public class AmazonS3Service {
         PutObjectResult objectResult = amazonS3.putObject(
                 photoPath.getUrl(), photoPath.getEncodedFileName(), inputStream, objectMetadata);
 
-        String path = String.format("%s/%s", photoPath.getUrl().split("/")[1], photoPath.getEncodedFileName());
-        return amazonS3.getUrl(bucketName, path).toString();
+        return getAmazonUrl(photoPath);
+    }
+
+    public String getAmazonUrl(PhotoPath photoPath) {
+        return amazonS3.getUrl(bucketName, photoPath.parseUrl()).toString();
     }
 
 }
