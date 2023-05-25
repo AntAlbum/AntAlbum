@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -55,7 +56,7 @@ public class Photo {
     public String getDate(Photo photo) throws ParseException {
         if (photo.getPhotoMeta().getDateTimeOriginal().equals("")) return null;
 
-        DateFormat format = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
         Date date = format.parse(photo.getPhotoMeta().getDateTimeOriginal());
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
         return formatter.format(date);
