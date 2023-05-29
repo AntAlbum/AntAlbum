@@ -62,7 +62,7 @@ public class TravelRepository {
 
     public List<Object[]> findTaggedFriends(Long travelId) {
         return em.createQuery(
-                "select u.id, u.profile from User u" +
+                "select u.id, u.nickname, u.profile from User u" +
                         " where u.id in ("+""+
                         " select t.user.id from Tag t" +
                         " where t.travel.id = :travelId" +
